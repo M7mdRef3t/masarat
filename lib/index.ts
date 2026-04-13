@@ -74,6 +74,11 @@ export {
   generateBasicPlan,
 } from "./planGenerator";
 
+// ─── Plan Templates ───────────────────────────────────────
+export {
+  buildAIPlanPrompt,
+} from "./planTemplates";
+
 // ─── Quick Path (Crisis) ────────────────────────────────
 export {
   getStaticQuickPath,
