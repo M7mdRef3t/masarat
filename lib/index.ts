@@ -51,6 +51,10 @@ export type {
   SymptomExercise,
 } from "./types";
 
+export type {
+  PatternAnalysisResult
+} from "./patternAnalyzer";
+
 // ─── Path Resolver ──────────────────────────────────────
 export {
   resolvePathId,
@@ -74,9 +78,11 @@ export {
   generateBasicPlan,
 } from "./planGenerator";
 
-// ─── Plan Templates ───────────────────────────────────────
+// ─── Plan Templates (Prompts) ───────────────────────────
 export {
   buildAIPlanPrompt,
+  buildPatternAnalysisPrompt,
+  buildQuickFeedbackPrompt
 } from "./planTemplates";
 
 // ─── Quick Path (Crisis) ────────────────────────────────
@@ -86,3 +92,9 @@ export {
   SITUATION_LABELS,
   SITUATION_ICONS,
 } from "./quickPath";
+
+// ─── Pattern Analyzer ───────────────────────────────────
+export {
+  analyzeSituations,
+  quickAnalyze
+} from "./patternAnalyzer";
