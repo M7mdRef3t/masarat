@@ -108,13 +108,3 @@ export const ROLE_LABELS: Record<string, string> = {
   general: "علاقة عامة",
   unknown: "غير محدد",
 };
-
-/** Pattern type labels (Arabic) */
-export const PATTERN_TYPE_LABELS: Record<string, string> = {
-  timing: "انتهاك الحدود الزمنية",
-  financial: "الضغط المالي",
-  emotional: "الذنب المفتعل",
-  behavioral: "السلوك المتكرر",
-  boundary: "تجاهل الحدود",
-  drain: "استنزاف الطاقة",
-};

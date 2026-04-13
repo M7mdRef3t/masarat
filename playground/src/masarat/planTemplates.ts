@@ -5,22 +5,7 @@
  * emotionally resonant recovery plans using AI.
  */
 
-import type { Ring, DetectedPattern, SymptomExercise, PatternType } from "./types";
-
-const PATTERN_TYPE_AR: Record<PatternType, string> = {
-  timing: "زمني",
-  financial: "مالي",
-  emotional: "عاطفي",
-  behavioral: "سلوكي",
-  boundary: "حدود"
-};
-
-const SEVERITY_AR: Record<string, string> = {
-  low: "منخفض",
-  medium: "متوسط",
-  high: "عالي",
-  critical: "خطر"
-};
+import type { Ring, DetectedPattern, SymptomExercise } from "./types";
 
 export function buildAIPlanPrompt(
   personLabel: string,
@@ -33,7 +18,7 @@ export function buildAIPlanPrompt(
 ): string {
   const primaryPattern = patterns[0];
   const allSituations = situations.join('\n• ');
-  const allPatterns = patterns.map(p => `- ${PATTERN_TYPE_AR[p.type] || p.type} (${SEVERITY_AR[p.severity || 'medium']}): ${p.description}`).join('\n');
+  const allPatterns = patterns.map(p => `- ${p.type} (${p.severity}): ${p.description}`).join('\n');
   const allSymptoms = symptomExercises.map(s => `- ${s.title}: ${s.description}`).join('\n');
 
   const traumaInheritanceBlock = focusTraumaInheritance
@@ -52,7 +37,7 @@ ${allPatterns}
 **الأعراض المكتشفة (حاسمة!):**
 ${allSymptoms || '(لا توجد أعراض محددة)'}
 
-**النمط الرئيسي:** ${PATTERN_TYPE_AR[primaryPattern?.type as PatternType] || 'علاقة مستنزفة'} (${SEVERITY_AR[primaryPattern?.severity || 'medium']})
+**النمط الرئيسي:** ${primaryPattern?.type || 'علاقة مستنزفة'} (${primaryPattern?.severity || '8'})
 
 **المواقف الحقيقية:**
 • ${allSituations}
@@ -65,10 +50,10 @@ ${analysisInsights.map((i, idx) => `${idx + 1}. ${i}`).join('\n')}${traumaInheri
 1. **الأولوية القصوى للأعراض**: كل عرض اختاره المستخدم يجب أن يتحول لتمرين عملي (CBT) في أحد الأسابيع.
 2. استخدم النمط والمواقف الحقيقية كأمثلة تطبيقية داخل تمارين الأعراض.
 3. اجعل اللغة هي "العامية المصرية المعاصرة" (مثل: "بتحس بإيه؟"، "قول لنفسك كذا"، "مش أنانية إنك تختار نفسك").
-4. **أنواع الخطوات العمليّة**: تأمل (reflection), كتابة (writing), ممارسة (practice), ملاحظة (observation), تحدي (challenge).
+4. ** action types**: reflection, writing, practice, observation, challenge.
 
-**المطلوب (بصيغة JSON فقط):**
-[بداية كود البرمجة]
+**المطلوب (JSON فقط):**
+[BEGIN JSON]
 {
   "totalWeeks": 4,
   "primaryPattern": "${primaryPattern?.type || 'emotional'}",
@@ -95,10 +80,10 @@ ${analysisInsights.map((i, idx) => `${idx + 1}. ${i}`).join('\n')}${traumaInheri
     "بصيرة عميقة مبنية على ربط الأعراض بالنمط"
   ]
 }
-[نهاية كود البرمجة]
+[END JSON]
 
 **إرشادات هامة:**
-1. **الأعراض الحاسمة**: إذا كان أهم عرض هو (الذنب)، فالأسبوع الأول لازم يكون "تحدي الذنب المفتعل". إذا كان (إرهاق)، فالأسبوع الأول "حماية الطاقة".
+1. **Decisive Symptoms**: إذا كان أهم عرض هو (الذنب)، فالأسبوع الأول لازم يكون "تحدي الذنب المفتعل". إذا كان (إرهاق)، فالأسبوع الأول "حماية الطاقة".
 2. **كلام حقيقي**: استخدم الجمل اللي اتقالت في المواقف عشان تخلّي التمارين "تلمس" المستخدم.
 3. **لا تكرار**: التمارين لازم تكون متدرجة (من الوعي -> الحماية -> الممارسة).
 4. **توارث الصدمات**: لو تم طلب التركيز عليه، اربط الأعراض باللي المستخدم شافه في عيلته.`;
@@ -115,19 +100,19 @@ export function buildPatternAnalysisPrompt(situationsText: string): string {
 ${situationsText}
 
 **الأنماط المحتملة:**
-1. **زمني**: انتهاك الحدود الزمنية (اتصالات في أوقات غير مناسبة، طلبات في أوقات حرجة)
-2. **مالي**: طلبات مالية متكررة، ضغط مالي، استغلال مادي
-3. **عاطفي**: استخدام الذنب كسلاح، إثارة المشاعر للتحكم، التلاعب العاطفي
-4. **سلوكي**: سلوكيات متكررة ضاغطة، أنماط سامة، تصرفات استنزافية
-5. **حدود**: تجاهل الحدود الشخصية، عدم احترام المساحة، انتهاك الخصوصية
+1. **timing**: انتهاك الحدود الزمنية (اتصالات في أوقات غير مناسبة، طلبات في أوقات حرجة)
+2. **financial**: طلبات مالية متكررة، ضغط مالي، استغلال مادي
+3. **emotional**: استخدام الذنب كسلاح، إثارة المشاعر للتحكم، التلاعب العاطفي
+4. **behavioral**: سلوكيات متكررة ضاغطة، أنماط سامة، تصرفات استنزافية
+5. **boundary**: تجاهل الحدود الشخصية، عدم احترام المساحة، انتهاك الخصوصية
 
-**المطلوب (بصيغة JSON فقط):**
+**المطلوب (JSON فقط):**
 \`\`\`json
 {
   "patterns": [
     {
       "type": "النوع من القائمة أعلاه",
-      "severity": "منخفض | متوسط | عالي | خطر",
+      "severity": "low | medium | high | critical",
       "confidence": 0.95,
       "description": "وصف دقيق للنمط بالعامية المصرية",
       "examples": ["مثال 1 من المواقف", "مثال 2"],
@@ -144,7 +129,7 @@ ${situationsText}
 
 **ملاحظات:**
 - ركز على الأنماط الواضحة فقط (confidence > 0.7)
-- رتب الأنماط حسب الخطورة (خطر أولاً)
+- رتب الأنماط حسب الخطورة (critical أولاً)
 - استخدم لغة عامية مصرية بسيطة وواضحة
 - كن محدداً في الأمثلة والمحفزات`;
 }
@@ -154,19 +139,19 @@ export function buildQuickFeedbackPrompt(text: string): string {
 
 "${text}"
 
-**المطلوب (بصيغة JSON فقط):**
+**المطلوب (JSON فقط):**
 \`\`\`json
 {
-  "type": "جيد | يحتاج-تفاصيل | تحذير",
+  "type": "good | needs-detail | warning",
   "title": "عنوان قصير (3-5 كلمات)",
   "feedback": "ملاحظة سريعة ومفيدة"
 }
 \`\`\`
 
 **معايير التقييم:**
-- "جيد": الموقف واضح، محدد، فيه تفاصيل (متى، إيه اللي حصل، الإحساس)
-- "يحتاج-تفاصيل": الموقف عام أو ناقص تفاصيل
-- "تحذير": الموقف مبهم جداً أو غير مفهوم
+- "good": الموقف واضح، محدد، فيه تفاصيل (متى، إيه اللي حصل، الإحساس)
+- "needs-detail": الموقف عام أو ناقص تفاصيل
+- "warning": الموقف مبهم جداً أو غير مفهوم
 
 استخدم العامية المصرية.`;
 }
