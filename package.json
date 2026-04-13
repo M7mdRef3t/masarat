@@ -1,0 +1,20 @@
+{
+  "name": "@alrehla/masarat",
+  "version": "0.1.0",
+  "description": "Masarat — Guided Recovery & Growth Path Engine. Build adaptive, AI-ready journeys for any platform.",
+  "main": "lib/index.ts",
+  "types": "lib/index.ts",
+  "keywords": [
+    "masarat",
+    "path-engine",
+    "recovery",
+    "journey-builder",
+    "guided-paths",
+    "alrehla"
+  ],
+  "author": "Alrehla",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}
