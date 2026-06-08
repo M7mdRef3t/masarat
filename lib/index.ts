@@ -55,6 +55,30 @@ export type {
   PatternAnalysisResult
 } from "./patternAnalyzer";
 
+// ─── Progress Engine ────────────────────────────────────
+export type {
+  StageId,
+  RecommendedTool,
+  JourneyStep,
+  ResponseDepth,
+  JourneyProgressStatus,
+  StepResponse,
+  JourneySessionState,
+  JourneyEvent,
+  JourneyProgressSummary,
+  JourneyActionResult,
+} from "./progressEngine";
+
+export {
+  calcDepth,
+  calcAdaptiveDepth,
+  getCurrentStep,
+  getProgressSummary,
+  advanceStep,
+  skipStep,
+  completeStageInsight,
+} from "./progressEngine";
+
 // ─── Path Resolver ──────────────────────────────────────
 export {
   resolvePathId,
